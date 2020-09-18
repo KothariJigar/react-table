@@ -1,0 +1,20 @@
+export const data = {
+  header: ["Sr No", "First Name", "Last Name", "Employee ID"],
+  body: [
+    ["1", "Jigar", "Kothari", "46017969"],
+    ["2", "John", "Doe", "46017970"],
+    ["3", "Mary", "Jane", "46017971"],
+    ["4", "Jigar", "Kothari", "46017969"],
+    ["5", "John", "Doe", "46017970"],
+    ["6", "Mary", "Jane", "46017971"],
+    ["7", "Jigar", "Kothari", "46017969"],
+    ["8", "John", "Doe", "46017970"],
+    ["9", "Mary", "Jane", "46017971"],
+    ["10", "Jigar", "Kothari", "46017969"],
+    ["11", "John", "Doe", "46017970"],
+    ["12", "Mary", "Jane", "46017971"],
+    ["13", "Jigar", "Kothari", "46017969"],
+    ["14", "John", "Doe", "46017970"],
+    ["15", "Mary", "Jane", "46017971"],
+  ],
+};
