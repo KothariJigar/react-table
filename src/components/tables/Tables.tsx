@@ -51,25 +51,34 @@ const PaginationWrapper = styled.div`
   justify-content: space-between;
 `;
 
+interface ColumnProps {
+  label: string;
+  field: string;
+}
+
 const Table: React.FC = () => {
-  const { header, body } = data;
+  const { columns, rows } = data;
   const dropdownValue = { id: 10, text: "10" };
 
   const [searchValue, setSearchValue] = useState("");
-  const [tableData, setTableData] = useState(body);
+  const [tableData, setTableData] = useState(rows);
   const [rowsPerPage, setRowsPerPage] = useState(dropdownValue);
   const [currentPage, setCurrentPage] = useState(1);
 
-  const filterTable = (value: string) => {
-    setSearchValue(value);
-    if (value) {
+  const filterTable = (inputValue: string) => {
+    setSearchValue(inputValue);
+    if (inputValue) {
       const filteredResults: any = [];
-      body.forEach((row: string[]) => {
+      rows.forEach((row: any) => {
         let found = false;
-        for (let i = 0; i < row.length; i++) {
+        for (const [key, value] of Object.entries(row)) {
+          const rowValue = value as string;
           if (
-            row[i].trim().toLowerCase().indexOf(value.trim().toLowerCase()) >
-              -1 &&
+            rowValue
+              .toString()
+              .trim()
+              .toLowerCase()
+              .indexOf(inputValue.trim().toLowerCase()) > -1 &&
             !found
           ) {
             filteredResults.push(row);
@@ -80,7 +89,7 @@ const Table: React.FC = () => {
 
       setTableData(filteredResults);
     } else {
-      setTableData(body);
+      setTableData(rows);
     }
     setCurrentPage(1);
   };
@@ -93,8 +102,8 @@ const Table: React.FC = () => {
     setRowsPerPage(selectedValue);
   };
 
-  const tableHeaders = header.map((heading: string, index: number) => (
-    <th key={`th-${index}`}>{heading}</th>
+  const tableHeaders = columns.map((column: ColumnProps, index: number) => (
+    <th key={`th-${index}`}>{column.label}</th>
   ));
 
   const start = rowsPerPage.id * (currentPage - 1);
@@ -102,11 +111,11 @@ const Table: React.FC = () => {
 
   const tableBody = tableData
     .slice(start, end)
-    .map((row: string[], index: number) => {
+    .map((row: any, index: number) => {
       return (
         <tr key={`tr-${index}`}>
-          {row.map((data: string, i: number) => (
-            <td key={`td-${index}-${i}`}>{data}</td>
+          {columns.map((column: ColumnProps, i: number) => (
+            <td key={`td-${index}-${i}`}>{row[column.field]}</td>
           ))}
         </tr>
       );
@@ -162,7 +171,7 @@ const Table: React.FC = () => {
       <PaginationWrapper>
         <div>
           <p>
-            Showing results {start + 1} to{" "}
+            Showing results {tableData.length ? start + 1 : start} to{" "}
             {end > tableData.length ? tableData.length : end} of{" "}
             {tableData.length}
           </p>
