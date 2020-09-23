@@ -3,32 +3,36 @@ export const data = {
     {
       label: "Sr No",
       field: "srNo",
+      width: "10%",
     },
     {
       label: "First Name",
       field: "firstName",
+      width: "40%",
     },
     {
       label: "Last Name",
       field: "lastName",
+      width: "40%",
     },
     {
       label: "Employee ID",
       field: "empId",
+      width: "10%",
     },
   ],
   rows: [
+    {
+      srNo: 2,
+      firstName: "Ja",
+      lastName: "Doe",
+      empId: 46017970,
+    },
     {
       srNo: 1,
       firstName: "Jigar",
       lastName: "Kothari",
       empId: 46017969,
-    },
-    {
-      srNo: 2,
-      firstName: "John",
-      lastName: "Doe",
-      empId: 46017970,
     },
     {
       srNo: 3,
