@@ -113,7 +113,9 @@ const Table: React.FC<DataTableProps> = ({ data, isStriped, hovered }) => {
   const [visibleRows, setVisibleRows] = useState<any[]>([]);
   const [rowsPerPage, setRowsPerPage] = useState(dropdownOptions[0]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [sortingColumn, setSortingColumn] = useState(defaultSortColumn.field);
+  const [sortingColumn, setSortingColumn] = useState(
+    defaultSortColumn ? defaultSortColumn.field : ""
+  );
   const [sortingOrder, setSortingOrder] = useState("");
 
   const start = rowsPerPage.id * (currentPage - 1);
