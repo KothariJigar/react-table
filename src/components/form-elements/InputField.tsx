@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 import { colors, whitespace } from "../../styles/constants";
+import SearchIcon from "../../styles/images/magnifying-glass.svg";
 
 interface TextFieldProps {
   uniqueId: string;
@@ -35,6 +36,9 @@ const Wrapper = styled.div`
     ::placeholder {
       font-style: italic;
       color: ${colors.grey.dark};
+      background-image: url(${SearchIcon});
+      background-repeat: no-repeat;
+      background-position: right;
     }
   }
 `;

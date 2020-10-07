@@ -40,6 +40,7 @@ const StyledTable = styled.table<TableProps>`
     background-color: ${colors.green.standard};
     color: #fff;
     word-break: break-word;
+    cursor: pointer;
   }
   th,
   td {
@@ -88,6 +89,7 @@ export interface ColumnProps {
   field: string;
   width?: string;
   sort?: string;
+  isNumeric?: boolean;
 }
 
 interface TableProps {
@@ -138,7 +140,7 @@ const Table: React.FC<DataTableProps> = ({ data, isStriped, hovered }) => {
       setTableData(rows);
       setSortingOrder("asc");
     }
-  }, []);
+  }, [rows]);
 
   useEffect(() => {
     const tableBody = tableData
@@ -157,56 +159,52 @@ const Table: React.FC<DataTableProps> = ({ data, isStriped, hovered }) => {
 
   const sortTable = (data: any[], columnName: string, sortType: string) => {
     const defaultSort = data.sort((first: any, second: any) => {
+      const filedDetails = columns.find(
+        (column) => column.field === columnName
+      );
+      const isNumeric =
+        filedDetails && filedDetails.isNumeric === true ? true : false;
+
       if (sortType === "asc") {
-        if (first[columnName] < second[columnName]) {
-          return -1;
+        if (isNumeric) {
+          if (parseFloat(first[columnName]) < parseFloat(second[columnName])) {
+            return -1;
+          }
+          if (parseFloat(first[columnName]) > parseFloat(second[columnName])) {
+            return 1;
+          }
+          return 0;
+        } else {
+          if (first[columnName] < second[columnName]) {
+            return -1;
+          }
+          if (first[columnName] > second[columnName]) {
+            return 1;
+          }
+          return 0;
         }
-        if (first[columnName] > second[columnName]) {
-          return 1;
-        }
-        return 0;
       } else {
-        if (first[columnName] > second[columnName]) {
-          return -1;
+        if (isNumeric) {
+          if (parseFloat(first[columnName]) > parseFloat(second[columnName])) {
+            return -1;
+          }
+          if (parseFloat(first[columnName]) < parseFloat(second[columnName])) {
+            return 1;
+          }
+          return 0;
+        } else {
+          if (first[columnName] > second[columnName]) {
+            return -1;
+          }
+          if (first[columnName] < second[columnName]) {
+            return 1;
+          }
+          return 0;
         }
-        if (first[columnName] < second[columnName]) {
-          return 1;
-        }
-        return 0;
       }
     });
     return defaultSort;
   };
-
-  // const filterTable = (inputValue: string) => {
-  //   setSearchValue(inputValue);
-  //   if (inputValue) {
-  //     const filteredResults: any = [];
-  //     rows.forEach((row: any) => {
-  //       let found = false;
-  //       for (const [key, value] of Object.entries(row)) {
-  //         const rowValue = value as string;
-
-  //         if (
-  //           rowValue
-  //             .toString()
-  //             .trim()
-  //             .toLowerCase()
-  //             .indexOf(inputValue.trim().toLowerCase()) > -1 &&
-  //           !found
-  //         ) {
-  //           filteredResults.push(row);
-  //           found = true;
-  //         }
-  //       }
-  //     });
-
-  //     setTableData(filteredResults);
-  //   } else {
-  //     setTableData(rows);
-  //   }
-  //   setCurrentPage(1);
-  // };
 
   const filterTable = (inputValue: string) => {
     setSearchValue(inputValue);
@@ -227,7 +225,6 @@ const Table: React.FC<DataTableProps> = ({ data, isStriped, hovered }) => {
                   .indexOf(value.trim().toLowerCase()) > -1
             );
             if (exists) {
-              console.log(exists);
               filteredResults.push(row);
               found = true;
             }
@@ -252,10 +249,6 @@ const Table: React.FC<DataTableProps> = ({ data, isStriped, hovered }) => {
     setCurrentPage(1);
   };
 
-  const showimage = (srcpath: string) => {
-    return <img src={srcpath} alt="sort icon" />;
-  };
-
   const handleSort = (field: string) => {
     let sortType = "";
     if (field === sortingColumn) {
@@ -278,11 +271,15 @@ const Table: React.FC<DataTableProps> = ({ data, isStriped, hovered }) => {
     >
       <HeadingContainer>
         {column.label} {""}
-        {column.field === sortingColumn
-          ? sortingOrder === "asc"
-            ? showimage(UpArrow)
-            : showimage(DownArrow)
-          : showimage(BothArrows)}
+        {column.field === sortingColumn ? (
+          sortingOrder === "asc" ? (
+            <span>&#8648;</span>
+          ) : (
+            <span>&#8650;</span>
+          )
+        ) : (
+          <span>&#8645;</span>
+        )}
       </HeadingContainer>
     </StyledHeading>
   ));
