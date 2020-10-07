@@ -212,8 +212,8 @@ const Table: React.FC<DataTableProps> = ({ data, isStriped, hovered }) => {
     setSearchValue(inputValue);
     if (inputValue) {
       const searchInputArray = inputValue.split(" ");
-      let filteredResults: any = rows.slice(0);
-      filteredResults.forEach((row: any) => {
+      let filteredResults: any = [];
+      rows.forEach((row: any) => {
         let found = false;
         for (const [key, value] of Object.entries(row)) {
           const rowValue = value as string;
@@ -227,6 +227,7 @@ const Table: React.FC<DataTableProps> = ({ data, isStriped, hovered }) => {
                   .indexOf(value.trim().toLowerCase()) > -1
             );
             if (exists) {
+              console.log(exists);
               filteredResults.push(row);
               found = true;
             }
@@ -235,7 +236,6 @@ const Table: React.FC<DataTableProps> = ({ data, isStriped, hovered }) => {
           }
         }
       });
-
       setTableData(filteredResults);
     } else {
       setTableData(rows);

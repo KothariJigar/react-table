@@ -13,6 +13,7 @@ const App = () => {
         label: "First Name",
         field: "firstName",
         width: "30%",
+        sort: "asc",
       },
       {
         label: "Last Name",
