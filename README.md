@@ -42,3 +42,45 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
+
+- Install VS Code for coding
+- Install node
+- Install npm
+
+#Front-end tools/libraries used
+
+##Typescript
+TypeScript is a superset of JavaScript which primarily provides optional static typing, classes and interfaces. One of the big benefits is to enable IDEs to provide a richer environment for spotting common errors as you type the code. Typescript is recommended for big projects like TDI 3.0 for more robust software, while still being deployable where a regular JavaScript application would run.
+
+We aim at using types as often as possible. The only exception is when third parties are used and it is more time consuming detecting/creating the correct type than it is useful. In this case the use of "any" is allowed.
+
+Documentation:
+https://www.typescriptlang.org
+
+##Styled-components
+We use styled-components to enhance our css with more maintainable styling practices and being able to scope our styles to component specific styles.
+https://www.styled-components.com/
+
+##React-router
+We use react-router to handle the dynamic routing in TDI, as it is one of the most common libraries used to handle this for react apps. You can read more about the router structure under the “Routing” section.
+
+Documentation:
+https://reacttraining.com/react-router/web/guides/quick-start
+
+##Suggested devtools
+
+- React devtools - https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi?hl=en
+
+##VS Code Extentions
+Extensions suggested to use for this project
+
+- Prettier - Code formatter https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode
+- vscode-styled-components https://marketplace.visualstudio.com/items?itemName=jpoissonnier.vscode-styled-components
+- TSlint - https://marketplace.visualstudio.com/items?itemName=ms-vscode.vscode-typescript-tslint-plugin
+
+##Naming conventions
+All folder names should use kebab case (all lower case with dash). Example: "form-elements".
+
+All component file names should use pascal case (each word starting with upper case). Example: "Tables.tsx". The component should have the exact same name as the file, unless there are other reasons or the file includes several components.
+
+Each component that has props should have an interface defined with the naming convention <ComponentName>Props. Example: a component named TableHeader would have the underface TableHeaderProps.
